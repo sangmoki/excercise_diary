@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.sangmoki.exercise_diary" />
+                  <option name="mobileSdkAppId" value="1:34810343004:android:5e003a5d317039a71cc099" />
+                  <option name="projectId" value="exercise-diary-3efc8" />
+                  <option name="projectNumber" value="34810343004" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
