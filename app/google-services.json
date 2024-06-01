@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "34810343004",
+    "project_id": "exercise-diary-3efc8",
+    "storage_bucket": "exercise-diary-3efc8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:34810343004:android:5e003a5d317039a71cc099",
+        "android_client_info": {
+          "package_name": "com.sangmoki.exercise_diary"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwmbGHZZmN7J4UYC3yJM5hBVfbz4s7Lsg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
