@@ -2,9 +2,11 @@ package com.sangmoki.exercise_diary
 
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.DatePicker
+import android.widget.EditText
 import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
@@ -16,11 +18,6 @@ import com.google.firebase.ktx.Firebase
 import java.util.GregorianCalendar
 
 class MainActivity : AppCompatActivity() {
-
-    // firebase database 객체 생성
-    val database = Firebase.database
-    // firebase database 객체 참조 생성
-    val myRef = database.getReference("message")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,6 +52,8 @@ class MainActivity : AppCompatActivity() {
             // 오늘 날짜로 날짜 선택 버튼 default 값 설정
             mAlertDialog.findViewById<Button>(R.id.dateSelectBtn)!!.setText("${year}년 ${month + 1}월 ${day}일")
 
+            var dataText = "${year}년 ${month + 1}월 ${day}일"
+
             // 띄운 다이얼로그에서 날짜 선택 버튼 클릭 이벤트
             mAlertDialog.findViewById<Button>(R.id.dateSelectBtn)?.setOnClickListener {
 
@@ -66,6 +65,8 @@ class MainActivity : AppCompatActivity() {
                     ) {
                         // 날짜 선택 시 버튼 텍스트 변경
                         mAlertDialog.findViewById<Button>(R.id.dateSelectBtn)!!.setText("${year}년 ${month + 1}월 ${dayOfMonth}일")
+
+                        dataText = "${year}년 ${month + 1}월 ${dayOfMonth}일"
                     }
 
                 }, year, month, day)
@@ -77,8 +78,24 @@ class MainActivity : AppCompatActivity() {
             // 저장하기 버튼 객체 담기
             val setDataBtn = mAlertDialog.findViewById<Button>(R.id.setDataBtn)
 
-            setDataBtn!!.setOnClickListener {
+            // 저장하기 버튼 클릭 이벤트
+            setDataBtn?.setOnClickListener {
 
+                // 운동 시간, 메모 데이터 객체에 담기
+                val exerciseMemo = mAlertDialog.findViewById<EditText>(R.id.exerciseMemo)?.text.toString()
+
+                // firebase database 객체 생성
+                val database = Firebase.database
+                // firebase database 객체 참조 생성
+                val myRef = database.getReference("나의 운동 기록")
+
+                Log.d("테스트ㅅ", "dataText : $dataText, exerciseMemo : $exerciseMemo")
+
+                // 데이터 모델 객체 생성
+                val model = DataModel(dataText, exerciseMemo)
+
+                // 데이터 모델 객체 데이터베이스에 저장
+                myRef.push().setValue(model)
             }
         }
     }

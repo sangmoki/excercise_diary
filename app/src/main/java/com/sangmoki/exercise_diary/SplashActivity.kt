@@ -34,10 +34,6 @@ class SplashActivity : AppCompatActivity() {
         // 사용자 현재 로그인 상태 확인
         val currentUser = auth.currentUser
 
-        Log.d("LOGINTEST", currentUser!!.uid)
-
-//        Toast.makeText(this, "기존에 비회원 로그인이 되어있는 사람 !", Toast.LENGTH_SHORT,).show()
-
         // 익명(비회원) 로그인 실행
         auth.signInAnonymously()
             .addOnCompleteListener(this) { task ->

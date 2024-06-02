@@ -6,6 +6,7 @@
 
 
     <EditText
+        android:id="@+id/exerciseMemo"
         android:background="@android:color/transparent"
         android:layout_margin="20dp"
         android:hint="운동 메모를 입력해주세요 !"
