@@ -21,6 +21,7 @@
         android:background="#999999" />
 
     <Button
+        android:id="@+id/dateSelectBtn"
         android:text="날짜를 선택해주세요."
         android:layout_margin="20dp"
         android:layout_width="match_parent"
