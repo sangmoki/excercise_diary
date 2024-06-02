@@ -44,6 +44,8 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:33.1.0"))
     // firebase auth
     implementation("com.google.firebase:firebase-analytics")
+    // firebase database
+    implementation("com.google.firebase:firebase-database-ktx")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

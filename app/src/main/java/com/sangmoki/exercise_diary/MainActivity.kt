@@ -2,7 +2,6 @@ package com.sangmoki.exercise_diary
 
 import android.app.DatePickerDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.DatePicker
@@ -12,9 +11,17 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import java.util.GregorianCalendar
 
 class MainActivity : AppCompatActivity() {
+
+    // firebase database 객체 생성
+    val database = Firebase.database
+    // firebase database 객체 참조 생성
+    val myRef = database.getReference("message")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -65,6 +72,13 @@ class MainActivity : AppCompatActivity() {
                 
                 // 날짜 선택 다이얼로그 띄움
                 dlg.show()
+            }
+
+            // 저장하기 버튼 객체 담기
+            val setDataBtn = mAlertDialog.findViewById<Button>(R.id.setDataBtn)
+
+            setDataBtn!!.setOnClickListener {
+
             }
         }
     }
