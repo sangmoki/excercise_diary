@@ -14,6 +14,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -47,7 +48,7 @@ class MainActivity : AppCompatActivity() {
         listView.adapter = listViewAdapter
 
         // firebase database 데이터 읽기
-        myRef.addValueEventListener(object: ValueEventListener {
+        myRef.child(Firebase.auth.currentUser!!.uid).addValueEventListener(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 // 데이터를 생성할 때마다 add 되는 형태이니, 데이터 모델 리스트를 초기화
                 dataModelList.clear()
@@ -121,8 +122,8 @@ class MainActivity : AppCompatActivity() {
 
                 // firebase database 객체 생성
                 val database = Firebase.database
-                // firebase database 객체 참조 생성
-                val myRef = database.getReference("나의 운동 기록")
+                // firebase database 객체 생성 시 keyId 생성 및 user id로 참조 생성
+                val myRef = database.getReference("나의 운동 기록").child(Firebase.auth.currentUser?.uid!!)
 
                 Log.d("테스트ㅅ", "dataText : $dataText, exerciseMemo : $exerciseMemo")
 
