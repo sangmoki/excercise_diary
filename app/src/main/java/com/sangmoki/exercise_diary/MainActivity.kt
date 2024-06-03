@@ -8,16 +8,22 @@ import android.widget.Button
 import android.widget.DatePicker
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.ListView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import java.util.GregorianCalendar
 
 class MainActivity : AppCompatActivity() {
+
+    val dataModelList = mutableListOf<DataModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +34,35 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        // firebase database 객체 생성
+        val database = Firebase.database
+        // firebase database 객체 참조 생성
+        val myRef = database.getReference("나의 운동 기록")
+        // listview 객체 생성
+        val listView = findViewById<ListView>(R.id.mainListView)
+        // 어댑터 생성
+        val listViewAdapter = ListViewAdapter(dataModelList)
+        // 리스트 뷰에 어댑터 연결
+        listView.adapter = listViewAdapter
+
+        // firebase database 데이터 읽기
+        myRef.addValueEventListener(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                // 데이터를 생성할 때마다 add 되는 형태이니, 데이터 모델 리스트를 초기화
+                dataModelList.clear()
+
+                // for문을 통해 snapshot에 있는 데이터 하나씩 조회
+                for (dataModel in snapshot.children) {
+                    dataModelList.add(dataModel.getValue(DataModel::class.java)!!)
+                }
+                // 초기 데이터가 없으니 이후 데이터가 들어오면 어댑터 새로고침
+                listViewAdapter.notifyDataSetChanged()
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
 
         val writeBtn = findViewById<ImageView>(R.id.writeBtn)
 
@@ -96,6 +131,8 @@ class MainActivity : AppCompatActivity() {
 
                 // 데이터 모델 객체 데이터베이스에 저장
                 myRef.push().setValue(model)
+
+                mAlertDialog.dismiss()
             }
         }
     }
