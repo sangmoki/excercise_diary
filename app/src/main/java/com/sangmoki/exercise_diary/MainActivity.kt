@@ -80,7 +80,8 @@ class MainActivity : AppCompatActivity() {
             val mDialogView = LayoutInflater.from(this).inflate(R.layout.custom_dialog, null)
             val mBuilder = AlertDialog.Builder(this)
                 .setView(mDialogView)
-                .setTitle("운동 기록 추가")
+                //.setTitle("운동 기록 추가")
+                .setTitle("기록 추가")
 
             // 다이얼로그 띄움
             val mAlertDialog = mBuilder.show()
